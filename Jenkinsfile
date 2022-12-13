@@ -7,55 +7,13 @@ pipeline {
          }
       }
 
-      // stage('Docker Build') {
-      //    steps {
-      //       sh "docker images -a"
-      //       sh "docker build -t jenkins-pipeline ./instrumentos-microservice/."
-      //       sh "docker images -a"
-            
-      //    }
-      // }
-
-      // stage('Start test app') {
-      //    steps {
-      //       sh(script: """
-      //          docker-compose up -d
-      //          chmod +x -R ${env.WORKSPACE}
-      //          ./scripts/test_container.sh
-      //       """)
-      //    }
-      //    post {
-      //       success {
-      //          echo "App started successfully :)"
-      //       }
-      //       failure {
-      //          echo "App failed to start :("
-      //       }
-      //    }
-      // }
-
-      // stage('Run Tests') {
-      //    steps {
-      //       sh(script: """
-      //          pytest ./tests/test_sample.py
-      //       """)
-      //    }
-      // }
-
-      stage('Stop test app') {
-         steps {
-            sh(script: """
-               ls
-            """)
-         }
-      }
-
       stage('Push container') {
          environment {
             WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/indep-siaraf_instrumentos:1.${BUILD_NUMBER}"
          }
          steps {
             echo "Workspace is $WORKSPACE"
+            echo "WebImage is $WEB_IMAGE_NAME"
             dir("$WORKSPACE")
             {
                script
