@@ -1,0 +1,8 @@
+FROM node:gallium-alpine
+# Fix timezone issue
+# ENV TZ=America/Mexico_City
+# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+COPY . /app
+WORKDIR /app
+RUN npm install
+ENTRYPOINT [ "npm", "run", "start:debug" ]
