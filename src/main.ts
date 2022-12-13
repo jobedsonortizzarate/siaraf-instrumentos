@@ -78,7 +78,7 @@ async function bootstrap() {
   //antes del listen, pero despues de todo lo demas agregar la configuracion de swagger
   //configuracion de swagger
   const options = new DocumentBuilder()
-    .setTitle('INDEP-SIARAF instrumentos API')
+    .setTitle('INDEP-SIARAF instrumentos API (Prueba de IC)')
     .setDescription('Microservicio para los Instrumentos')
     .setVersion('1.0.0')
     // .addBearerAuth()
