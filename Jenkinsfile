@@ -2,21 +2,15 @@ pipeline {
    agent any
    stages {
       stage('Verify Branch') {
-         when {
-            anyOf {
-               changeset "catalogosms/**"
-            }
-         }         
          steps {
             echo "$GIT_BRANCH"
-
          }
       }
 
       // stage('Docker Build') {
       //    steps {
       //       sh "docker images -a"
-      //       sh "docker build -t jenkins-pipeline ./catalogos-microservice/."
+      //       sh "docker build -t jenkins-pipeline ./instrumentos-microservice/."
       //       sh "docker images -a"
             
       //    }
@@ -57,17 +51,12 @@ pipeline {
       }
 
       stage('Push container') {
-         when {
-            anyOf {
-               changeset "catalogosms/**"
-            }
-         }                  
          environment {
-            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/indep-siaraf_catalogos:1.${BUILD_NUMBER}"
+            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/indep-siaraf_instrumentos:1.${BUILD_NUMBER}"
          }
          steps {
             echo "Workspace is $WORKSPACE"
-            dir("$WORKSPACE/catalogosms")
+            dir("$WORKSPACE")
             {
                script
                {
@@ -83,21 +72,17 @@ pipeline {
 
 
       stage('Deploying container.') {
-         when {
-            anyOf {
-               changeset "catalogosms/**"
-            }
-         }                  
+                    
          environment {
             ENVIRONMENT = 'qa'
-            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/indep-siaraf_catalogos:1.${BUILD_NUMBER}"
+            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/indep-siaraf_instrumentos:1.${BUILD_NUMBER}"
          }
          steps {
             echo "Deploying to ${ENVIRONMENT}"
          
             sh(script: """
             # Update kubernetes deployment with new image.
-            kubectl set image deployment/catalogosms catalogosms="$WEB_IMAGE_NAME"
+            kubectl set image deployment/instrumentosms instrumentosms="$WEB_IMAGE_NAME"
             """)
 
          }
