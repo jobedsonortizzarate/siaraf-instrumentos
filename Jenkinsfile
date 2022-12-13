@@ -6,6 +6,18 @@ pipeline {
             echo "$GIT_BRANCH"
          }
       }
+       
+      stage('Verify unit-test') {
+         steps {
+            echo "$GIT_BRANCH"
+         }
+      }
+       
+      stage('Verify test-coverage') {
+         steps {
+            echo "$GIT_BRANCH"
+         }
+      }
 
       stage('Push container') {
          environment {
