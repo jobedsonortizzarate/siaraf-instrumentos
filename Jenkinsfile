@@ -40,7 +40,7 @@ pipeline {
          
             sh(script: """
             # Update kubernetes deployment with new image.
-            kubectl set image deployment/instrumentosms instrumentosms="$WEB_IMAGE_NAME"
+            #kubectl set image deployment/instrumentosms instrumentosms="$WEB_IMAGE_NAME"
             """)
 
          }
